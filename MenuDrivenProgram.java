@@ -2,7 +2,9 @@ import java.util.Scanner;
 
 public class MenuDrivenProgram {
 
-    // ================= SEARCH METHODS =================
+    // ==============
+    // SEARCH METHODS
+    // ==============
 
     static int linearSearch(int[] arr, int key) {
         for (int i = 0; i < arr.length; i++) {
@@ -29,7 +31,9 @@ public class MenuDrivenProgram {
         return -1;
     }
 
-    // ================= STACK =================
+    // ======
+    // STACK
+    // ======
 
     static class Stack {
         int[] stack;
@@ -44,7 +48,6 @@ public class MenuDrivenProgram {
                 System.out.println("Stack Overflow!");
             } else {
                 stack[++top] = value;
-                System.out.println("Element pushed: " + value);
             }
         }
 
@@ -55,6 +58,10 @@ public class MenuDrivenProgram {
             }
 
             return stack[top--];
+        }
+
+        boolean isEmpty() {
+            return top == -1;
         }
 
         void display() {
@@ -71,7 +78,9 @@ public class MenuDrivenProgram {
         }
     }
 
-    // ================= INFIX TO POSTFIX =================
+    // =================
+    // INFIX TO POSTFIX
+    // =================
 
     static int precedence(char ch) {
         switch (ch) {
@@ -103,17 +112,14 @@ public class MenuDrivenProgram {
 
             char ch = infix.charAt(i);
 
-            // Ignore spaces
-            if (Character.isWhitespace(ch)) {
+            if (Character.isWhitespace(ch))
                 continue;
-            }
 
-            // Multi-digit number
             if (Character.isDigit(ch) || ch == '.') {
 
-                while (i < infix.length() &&
-                        (Character.isDigit(infix.charAt(i)) ||
-                         infix.charAt(i) == '.')) {
+                while (i < infix.length()
+                        && (Character.isDigit(infix.charAt(i))
+                        || infix.charAt(i) == '.')) {
 
                     postfix.append(infix.charAt(i));
                     i++;
@@ -121,7 +127,6 @@ public class MenuDrivenProgram {
 
                 postfix.append(" ");
                 i--;
-
             }
 
             else if (ch == '(') {
@@ -140,9 +145,9 @@ public class MenuDrivenProgram {
 
             else {
 
-                while (top != -1 &&
-                        stack[top] != '(' &&
-                        precedence(ch) <= precedence(stack[top])) {
+                while (top != -1
+                        && stack[top] != '('
+                        && precedence(ch) <= precedence(stack[top])) {
 
                     postfix.append(stack[top--]).append(" ");
                 }
@@ -158,7 +163,9 @@ public class MenuDrivenProgram {
         return postfix.toString().trim();
     }
 
-    // ================= POSTFIX EVALUATION =================
+    // ==================
+    // POSTFIX EVALUATION
+    // ==================
 
     static double evaluatePostfix(String postfix) {
 
@@ -169,15 +176,11 @@ public class MenuDrivenProgram {
 
         for (String token : tokens) {
 
-            // Number
             if (token.matches("\\d+(\\.\\d+)?")) {
 
                 stack[++top] = Double.parseDouble(token);
 
-            }
-
-            // Operator
-            else {
+            } else {
 
                 double b = stack[top--];
                 double a = stack[top--];
@@ -214,13 +217,112 @@ public class MenuDrivenProgram {
         return stack[top];
     }
 
-    // ================= SEARCH MENU =================
+    // =======
+    // QUEUE
+    // =======
+
+    static class Queue {
+
+        int[] queue;
+        int front;
+        int rear;
+        int size;
+
+        Queue(int size) {
+            this.size = size;
+            queue = new int[size];
+
+            front = -1;
+            rear = -1;
+        }
+
+        // Insert
+        void enqueue(int value) {
+
+            if (rear == size - 1) {
+                System.out.println("Queue Overflow!");
+                return;
+            }
+
+            if (front == -1)
+                front = 0;
+
+            queue[++rear] = value;
+
+            System.out.println(value + " inserted");
+        }
+
+        // Delete
+        void dequeue() {
+
+            if (front == -1 || front > rear) {
+                System.out.println("Queue Underflow!");
+                return;
+            }
+
+            System.out.println(queue[front] + " deleted");
+
+            front++;
+
+            if (front > rear) {
+                front = -1;
+                rear = -1;
+            }
+        }
+
+        // Display
+        void display() {
+
+            if (front == -1) {
+                System.out.println("Queue is empty");
+                return;
+            }
+
+            System.out.print("Queue: ");
+
+            for (int i = front; i <= rear; i++) {
+                System.out.print(queue[i] + " ");
+            }
+
+            System.out.println();
+        }
+
+        // Reverse Queue using Stack
+        void reverse() {
+
+            if (front == -1) {
+                System.out.println("Queue is empty");
+                return;
+            }
+
+            Stack s = new Stack(size);
+
+            // Push queue elements into stack
+            for (int i = front; i <= rear; i++) {
+                s.push(queue[i]);
+            }
+
+            // Pop stack elements and put them back into queue
+            for (int i = front; i <= rear; i++) {
+                queue[i] = s.pop();
+            }
+
+            System.out.println("Queue reversed successfully.");
+
+            display();
+        }
+    }
+
+    // ================
+    // MAIN SEARCH MENU
+    // ================
 
     static void searchMenu(Scanner sc) {
 
         int choice;
 
         do {
+
             System.out.println("\n========== SEARCH ==========");
             System.out.println("1. Linear Search");
             System.out.println("2. Binary Search");
@@ -250,7 +352,9 @@ public class MenuDrivenProgram {
                     int result1 = linearSearch(arr1, key1);
 
                     if (result1 != -1)
-                        System.out.println("Element found at position " + (result1 + 1));
+                        System.out.println(
+                                "Element found at position "
+                                        + (result1 + 1));
                     else
                         System.out.println("Element not found.");
 
@@ -263,7 +367,8 @@ public class MenuDrivenProgram {
 
                     int[] arr2 = new int[n2];
 
-                    System.out.println("Enter elements in sorted ascending order:");
+                    System.out.println(
+                            "Enter elements in sorted ascending order:");
 
                     for (int i = 0; i < n2; i++) {
                         arr2[i] = sc.nextInt();
@@ -275,7 +380,9 @@ public class MenuDrivenProgram {
                     int result2 = binarySearch(arr2, key2);
 
                     if (result2 != -1)
-                        System.out.println("Element found at position " + (result2 + 1));
+                        System.out.println(
+                                "Element found at position "
+                                        + (result2 + 1));
                     else
                         System.out.println("Element not found.");
 
@@ -291,7 +398,9 @@ public class MenuDrivenProgram {
         } while (choice != 3);
     }
 
-    // ================= STACK OPERATIONS MENU =================
+    // ======================
+    // STACK OPERATIONS MENU
+    // ======================
 
     static void stackOperationsMenu(Scanner sc) {
 
@@ -336,15 +445,16 @@ public class MenuDrivenProgram {
 
                             case 1:
                                 System.out.print("Enter element: ");
-                                int value = sc.nextInt();
-                                s.push(value);
+                                s.push(sc.nextInt());
                                 break;
 
                             case 2:
+
                                 int popped = s.pop();
 
                                 if (popped != -1)
-                                    System.out.println("Element popped: " + popped);
+                                    System.out.println(
+                                            "Element popped: " + popped);
 
                                 break;
 
@@ -370,7 +480,8 @@ public class MenuDrivenProgram {
 
                     postfix = infixToPostfix(infix);
 
-                    System.out.println("Postfix expression: " + postfix);
+                    System.out.println(
+                            "Postfix expression: " + postfix);
 
                     break;
 
@@ -379,13 +490,13 @@ public class MenuDrivenProgram {
                     if (postfix.isEmpty()) {
 
                         System.out.println(
-                            "No postfix expression available. " +
-                            "First convert an infix expression to postfix."
-                        );
+                                "First convert an infix expression "
+                                        + "to postfix.");
 
                     } else {
 
-                        System.out.println("Postfix expression: " + postfix);
+                        System.out.println(
+                                "Postfix expression: " + postfix);
 
                         double result = evaluatePostfix(postfix);
 
@@ -404,7 +515,109 @@ public class MenuDrivenProgram {
         } while (choice != 4);
     }
 
-    // ================= MAIN METHOD =================
+    // ======================
+    // QUEUE OPERATIONS MENU
+    // ======================
+
+    static void queueOperationsMenu(Scanner sc) {
+
+        int choice;
+
+        do {
+
+            System.out.println("\n====== QUEUE OPERATIONS ======");
+            System.out.println("1. Implement Queue using Array");
+            System.out.println("2. Reverse Queue using Stack");
+            System.out.println("3. Back to Main Menu");
+            System.out.print("Enter your choice: ");
+
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+
+                    System.out.print("Enter queue size: ");
+                    int size = sc.nextInt();
+
+                    Queue q = new Queue(size);
+
+                    int queueChoice;
+
+                    do {
+
+                        System.out.println("\n===== QUEUE =====");
+                        System.out.println("1. Insert");
+                        System.out.println("2. Delete");
+                        System.out.println("3. Display");
+                        System.out.println("4. Back");
+                        System.out.print("Enter choice: ");
+
+                        queueChoice = sc.nextInt();
+
+                        switch (queueChoice) {
+
+                            case 1:
+                                System.out.print("Enter value: ");
+                                q.enqueue(sc.nextInt());
+                                break;
+
+                            case 2:
+                                q.dequeue();
+                                break;
+
+                            case 3:
+                                q.display();
+                                break;
+
+                            case 4:
+                                break;
+
+                            default:
+                                System.out.println("Invalid choice");
+                        }
+
+                    } while (queueChoice != 4);
+
+                    break;
+
+                case 2:
+
+                    System.out.print("Enter queue size: ");
+                    int reverseSize = sc.nextInt();
+
+                    Queue reverseQueue = new Queue(reverseSize);
+
+                    System.out.print(
+                            "Enter number of elements: ");
+                    int n = sc.nextInt();
+
+                    System.out.println("Enter queue elements:");
+
+                    for (int i = 0; i < n; i++) {
+                        reverseQueue.enqueue(sc.nextInt());
+                    }
+
+                    System.out.println("\nOriginal Queue:");
+                    reverseQueue.display();
+
+                    reverseQueue.reverse();
+
+                    break;
+
+                case 3:
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice!");
+            }
+
+        } while (choice != 3);
+    }
+
+    // ============
+    // MAIN METHOD
+    // ============
 
     public static void main(String[] args) {
 
@@ -423,7 +636,8 @@ public class MenuDrivenProgram {
             System.out.println("\n========== MAIN MENU ==========");
             System.out.println("1. Search");
             System.out.println("2. Stack Operations");
-            System.out.println("3. Exit");
+            System.out.println("3. Queue Operations");
+            System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
 
             choice = sc.nextInt();
@@ -439,14 +653,18 @@ public class MenuDrivenProgram {
                     break;
 
                 case 3:
-                    System.out.println("Thank You!");
+                    queueOperationsMenu(sc);
+                    break;
+
+                case 4:
+                    System.out.println("Program ended.");
                     break;
 
                 default:
                     System.out.println("Invalid Choice!");
             }
 
-        } while (choice != 3);
+        } while (choice != 4);
 
         sc.close();
     }
