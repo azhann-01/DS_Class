@@ -1,5 +1,5 @@
 import java.util.*;
-class SLinkedList{
+class SingleLinkedList{
     class Node{
         int data;
         Node next;
@@ -9,7 +9,6 @@ class SLinkedList{
             this.next=null;
         }
     }
-
     Node head=null;
 
     void CreateList(){
@@ -29,7 +28,6 @@ class SLinkedList{
             }
         }
     }
-
     void display(){
         Node p = head;
         if(p==null){
@@ -42,12 +40,14 @@ class SLinkedList{
             }
             System.out.println("NULL");
         }
+    } 
+
+    void insert_beg(){
+
     }
-
-
 public static void main(String args[]){
     Scanner sc = new Scanner(System.in);
-    SLinkedList list = new SLinkedList();
+    SingleLinkedList list = new SingleLinkedList();
     System.out.println("Enter your choice: ");
     int choice;
     do{
