@@ -40,13 +40,14 @@ class DoubleLinkedList {
             } else{
                 System.out.println("List on forward direction: ");
                 while(temp.right!=null){
-                    System.out.println(temp.data + "-->");
+                    System.out.print(temp.data + "<-->");
                     temp=temp.right;
                 }
-                System.out.println(temp.data + "-->" + "NULL");
+                System.out.println(temp.data + "<-->" + "NULL");
+                System.out.println("--------------------------");
                 System.out.println("List on backward direction: ");
                 while(temp!=null){
-                    System.out.println(temp.data + "-->");
+                    System.out.print(temp.data + "<-->");
                     temp=temp.left;
                 }
                 System.out.println("NULL");
