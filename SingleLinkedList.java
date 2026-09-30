@@ -43,7 +43,40 @@ class SingleLinkedList{
     } 
 
     void insert_beg(){
+        System.out.println("enter data");
+        Scanner sc = new Scanner(System.in);
+        int v = sc.nextInt();
+        Node newnode = new Node(v);
+        newnode.next=head;
+        head=newnode;
+    }
 
+    void insert_end(){
+        Node temp = null;
+        System.out.println("enter data");
+        Scanner sc = new Scanner(System.in);
+        int v = sc.nextInt();
+        temp = head;
+        Node newnode = new Node(v);
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        temp.next=newnode;
+    }
+
+    void insert_inbtw(){
+        Scanner sc = new Scanner(System.in);
+        Node temp = head;
+        System.out.println("enter data");
+        int v = sc.nextInt();
+        Node newnode = new Node(v);
+        System.out.println("enter data after which you want to insert: ");
+        int clc = sc.nextInt();
+        while(temp.data!=clc){
+            temp=temp.next;
+        }
+        newnode.next=temp.next;
+        temp.next=newnode;
     }
 public static void main(String args[]){
     Scanner sc = new Scanner(System.in);
@@ -53,7 +86,10 @@ public static void main(String args[]){
     do{
         System.out.println("1. Create List");
         System.out.println("2. Display list");
-        System.out.println("3. Exit");
+        System.out.println("3. Insert at beginning");
+        System.out.println("4. Insert at end");
+        System.out.println("5. Insert in between");
+        System.out.println("6. Exit");
 
         choice = sc.nextInt();
 
@@ -65,13 +101,25 @@ public static void main(String args[]){
                 list.display();
                 break;
             case 3:
-                System.out.println("Program exited.");
+                list.insert_beg(); 
+                System.out.println("value inserted.");
+                break;
+            case 4:
+                list.insert_end();
+                System.out.println("value inserted.");
+                break;
+            case 5:
+                list.insert_inbtw();
+                System.out.println("value inserted in between");
+                break;
+            case 6:
+                System.out.println("Program termminated!!");
                 break;
             default:
                 System.out.println("Invalid choice");
                 break;
         }
-    }while(choice!=3);
+    }while(choice!=6);
 
     sc.close();
     }
