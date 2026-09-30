@@ -11,7 +11,7 @@ class DoubleLinkedList {
             this.left = null;
             this.right = null;
         }
-
+    }
         Node head = null;
 
         void CreateList() {
@@ -52,5 +52,34 @@ class DoubleLinkedList {
                 System.out.println("NULL");
             }
         }
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        DoubleLinkedList list = new DoubleLinkedList();
+        System.out.println("Enter your choice");
+        int choice;
+        do{
+        System.out.println("1. Create List");
+        System.out.println("2. Display list");
+        System.out.println("3. Exit");
+
+        choice = sc.nextInt();
+
+        switch(choice){
+            case 1:
+                list.CreateList();
+                System.out.println("DLL Created");
+                break;
+            case 2:
+                list.display();
+                break;
+            case 3:
+                System.out.println("Program Terminated!!");
+                break;
+            default:
+            System.out.println("Invalid Choice");
+            break;
+        }
+        } while(choice!=3);
+        sc.close();
     }
 }
