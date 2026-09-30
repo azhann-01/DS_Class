@@ -39,14 +39,14 @@ class DoubleLinkedList {
         if (temp == null) {
             System.out.println("Empty DLL");
         } else {
-            System.out.println("List on forward direction: ");
+            System.out.println("List in forward direction: ");
             while (temp.right != null) {
                 System.out.print(temp.data + "<-->");
                 temp = temp.right;
             }
             System.out.println(temp.data + "<-->" + "NULL");
             System.out.println("--------------------------");
-            System.out.println("List on backward direction: ");
+            System.out.println("List in backward direction: ");
             while (temp != null) {
                 System.out.print(temp.data + "<-->");
                 temp = temp.left;
