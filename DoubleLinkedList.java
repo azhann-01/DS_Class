@@ -33,5 +33,24 @@ class DoubleLinkedList {
             }
         }
         
+        void display(){
+            Node temp = head;
+            if (temp==null){
+                System.out.println("Empty DLL");
+            } else{
+                System.out.println("List on forward direction: ");
+                while(temp.right!=null){
+                    System.out.println(temp.data + "-->");
+                    temp=temp.right;
+                }
+                System.out.println(temp.data + "-->" + "NULL");
+                System.out.println("List on backward direction: ");
+                while(temp!=null){
+                    System.out.println(temp.data + "-->");
+                    temp=temp.left;
+                }
+                System.out.println("NULL");
+            }
+        }
     }
 }
